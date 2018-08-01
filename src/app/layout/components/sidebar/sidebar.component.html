@@ -1,0 +1,57 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+    <ul class="list-group">
+        <a *ngIf="userRole == 'Requester'" [routerLink]="['/adjustment/create']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-edit"></i>&nbsp;{{ 'Create Adjustment' | translate }}
+        </a>
+        <a *ngIf="userRole == 'Approver'" [routerLink]="['/adjustment/reports']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'For Approval' | translate }}
+        </a>
+        <a *ngIf="userRole != 'Approver'" [routerLink]="['/adjustment/reports']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Reports' | translate }}
+        </a>
+
+        <div class="nested-menu manageUser">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <span><i class="fa fa-user"></i> {{user}}</span>
+            </a>
+            <li id="userManagement" class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a class="list-group-item" href="javascript:void(0)">(Role: {{userRole}})</a>
+                    </li>
+                    <li>
+                        <a class="list-group-item" [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" href="javascript:void(0)">
+                            <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <!-- <a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-th-list"></i>&nbsp;{{ 'Component' | translate }}
+        </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <span><i class="fa fa-plus"></i>&nbsp; {{ 'Menu' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
+                    </li>
+                </ul>
+            </li>
+        </div> -->
+        <!-- <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;{{ 'Blank Page' | translate }}
+        </a> -->
+
+    </ul>
+</nav>

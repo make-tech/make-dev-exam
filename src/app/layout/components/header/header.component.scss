@@ -1,0 +1,53 @@
+$topnav-background-color: rgb(40, 40, 40);
+:host {
+    .navbar {
+        background-color: $topnav-background-color;
+        border-radius: .0rem;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item > a {
+            color: #999;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+    .messages {
+        width: 300px;
+        .media {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        .media-body {
+            h5 {
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .small {
+                margin: 0;
+            }
+            .last {
+                font-size: 12px;
+                margin: 0;
+            }
+        }
+    }
+
+}
+
+@media only screen and (max-width: 776px) {
+    .navbar {
+        padding-top: 15px;
+        padding-bottom: 11px;
+        .header-title {
+            position: absolute;
+            margin-left: 70px;
+            margin-top: -6px;
+        }
+    }
+}
+
