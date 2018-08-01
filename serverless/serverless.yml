@@ -1,0 +1,57 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: gym-buddy
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  # stage: prod
+  stage: dev
+  region: ap-southeast-1
+
+# you can add statements to the Lambda function's IAM Role here
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+      - "logs:*"
+      Resource: "*"
+
+functions:
+  getUserData:
+    handler: routes/getUserData.getUserData
+    events:
+    - http:
+        path: /getUserData/{athlete}
+        method: get
+        cors: true
+
+  saveProgramWorkout:
+    handler: routes/saveProgramWorkout.saveProgramWorkout
+    events:
+    - http:
+        path: /saveProgramWorkout
+        method: post
+        cors: true
+
+  updateProgramWorkout:
+    handler: routes/updateProgramWorkout.updateProgramWorkout
+    events:
+    - http:
+        path: /updateProgramWorkout
+        method: put
+        cors: true
