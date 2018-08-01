@@ -1,0 +1,28 @@
+<!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Gym Buddy</title>
+        <base href="/">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+        <!-- https://github.com/aws/aws-amplify/issues/678 fix: -->
+        <script>
+            if (global === undefined) {
+            var global = window;
+            }
+        </script>
+        <!-- https://github.com/aws/aws-amplify/issues/678 fix end-->
+    </head>
+    <body>
+        <app-root>
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </app-root>
+    </body>
+</html>

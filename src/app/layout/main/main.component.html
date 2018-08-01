@@ -1,0 +1,170 @@
+<div [@routerTransition]>
+    <div class="row" id="mainSection">
+        <div class="col-3" id="addSection">
+        <button (click)="addWorkoutProgram()" mat-mini-fab color="warn">
+            <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+        </button>
+        </div>
+        <div class="col-9" id="bodySection">
+            <div class="row" id="welcomeAthlete">
+                <div class="col-9">
+                    <p>{{welcomeUser}}</p>
+                </div>
+                <div class="col-auto">
+                    <span (click)="signOut()" id="signOut">Sign out &nbsp; <i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="row" id="daysFilter">
+                <div class="col">
+                    <span>FILTER: </span>
+                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                        <mat-button-toggle (click)="filterPrograms($event)" value="Mon">Mon</mat-button-toggle>
+                        <mat-button-toggle (click)="filterPrograms($event)" value="Tue">Tue</mat-button-toggle>
+                        <mat-button-toggle (click)="filterPrograms($event)" value="Wed">Wed</mat-button-toggle>
+                        <mat-button-toggle (click)="filterPrograms($event)" value="Thu">Thu</mat-button-toggle>
+                        <mat-button-toggle (click)="filterPrograms($event)" value="Fri">Fri</mat-button-toggle>
+                        <mat-button-toggle (click)="filterPrograms($event)" value="Sat">Sat</mat-button-toggle>
+                        <mat-button-toggle (click)="filterPrograms($event)" value="Sun">Sun</mat-button-toggle>
+                        <mat-button-toggle (click)="filterPrograms($event)" value="All">All</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+            </div>
+            <div class="row" id="routineList">
+                <div class="col">
+                    <div class="emptyBox">
+                        <p>You have no saved program.</p>
+                        <p>Click the + button to start your fitness journey!</p>
+                    </div>
+                    <div (click)="populateFormWithData(program)" *ngFor="let program of athletePrograms" class="box" id="{{program.id}}">
+                        <p class="programName">{{program.programName}}</p>
+                        <p class="programSchedule">{{program.programSchedule}}</p>
+                        <p class="programDuration">Ends on {{program.programDuration | date: 'medium'}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--START: MODAL FORM-->
+    <div class="modal fade" id="modalWorkOutProgramForm" tabindex="-1" role="dialog" aria-labelledby="modalWorkOutProgramFormLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100 font-weight-bold">{{formHeaderLabel}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div (click)="toggleErrorMsg('hide')" class="modal-body mx-3">
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="workoutProgramName" class="form-control" id="workoutProgramName" placeholder="Workout Program Name">
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-sm-5 my-1 form-group">
+                            <span>Program Duration</span>
+                        </div>
+                        <div class="col-sm-3 my-1 form-group program-duration">
+                            <input type="number" min="0" [(ngModel)]="workoutProgramScheduleUnitValue" class="form-control" id="recurrence">
+                        </div>
+                        <div class="col-auto my-1 form-group program-duration">
+                            <select [(ngModel)]="workoutProgramScheduleUnit" class="form-control" id="unit">
+                                <option value="Days">Day(s)</option>
+                                <option value="Weeks">Week(s)</option>
+                                <option value="Months">Month(s)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" id="checkbox">
+                        <div class="col-sm-12">
+                                <div class="form-group form-check form-check-inline">
+                                    <input class="form-check-input days" type="checkbox" id="monday" value="Mon">
+                                    <label class="form-check-label" for="monday">Mon</label>
+                                </div>
+                                <div class="form-group form-check form-check-inline">
+                                    <input class="form-check-input days" type="checkbox" id="tuesday" value="Tue">
+                                    <label class="form-check-label" for="tuesday">Tue</label>
+                                </div>
+                                <div class="form-group form-check form-check-inline">
+                                    <input class="form-check-input days" type="checkbox" id="wednesday" value="Wed">
+                                    <label class="form-check-label" for="wednesday">Wed</label>
+                                </div>
+                                <div class="form-group form-check form-check-inline">
+                                    <input class="form-check-input days" type="checkbox" id="thursday" value="Thu">
+                                    <label class="form-check-label" for="thursday">Thu</label>
+                                </div>
+                                <div class="form-group form-check form-check-inline">
+                                    <input class="form-check-input days" type="checkbox" id="friday" value="Fri">
+                                    <label class="form-check-label" for="friday">Fri</label>
+                                </div>
+                                <div class="form-group form-check form-check-inline">
+                                    <input class="form-check-input days" type="checkbox" id="saturday" value="Sat">
+                                    <label class="form-check-label" for="saturday">Sat</label>
+                                </div>
+                                <div class="form-group form-check form-check-inline">
+                                    <input class="form-check-input days" type="checkbox" id="sunday" value="Sun">
+                                    <label class="form-check-label" for="sunday">Sun</label>
+                                </div>
+                                <p (click)="daily()" id="allDays">Check all</p>
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-sm-6 my-1">
+                            <label class="sr-only" for="exerciseName">Exercise Name</label>
+                            <input (keyup)="keyUp($event)" [(ngModel)]="exerciseName" type="text" class="form-control" id="exerciseName" placeholder="exercise name">
+                        </div>
+                        <div class="col-sm-4 my-1">
+                            <label class="sr-only" for="exerciseDuration">Exercise Duration</label>
+                            <input (keyup)="keyUp($event)" [(ngModel)]="exerciseDuration" type="text" class="form-control" id="exerciseDuration" placeholder="reps/duration">
+                        </div>
+                        <div class="col-auto my-1">
+                                <button *ngIf="!isExerciseForUpdate" (click)="addExerciseToProgram()" mat-mini-fab id="addExercise"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                <button *ngIf="isExerciseForUpdate" (click)="addExerciseToProgram(true)" mat-mini-fab id="updateExercise"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-sm-12 my-1">
+                            <table class="table" id="exercises">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Duration</th>
+                                        <th scope="col">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let exercise of exercises; let i = index">
+                                        <td (click)="setExercise(i)">{{exercise.name}}</td>
+                                        <td (click)="setExercise(i)">{{exercise.duration}}</td>
+                                        <td><i (click)="removeExerciseFromProgram(i)" class="fa fa-minus" id="removeExercise" aria-hidden="true"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-row" id="formError">
+                        <div class="col-sm-12 my-1">
+                            {{formMsg}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button (click)="saveProgram()" mat-raised-button color="warn">{{formSaveButtonLabel}} <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                </div>
+                <div id="loadingSave">
+                    <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END: MODAL FORM-->
+
+     <!--START: Loading Screen-->
+    <div class="row" id="loadingScreen">
+        <div class="col">
+            <mat-spinner color="warn" id="spinner"></mat-spinner>
+        </div>
+    </div>
+    <!--END: Loading Screen-->
+</div>

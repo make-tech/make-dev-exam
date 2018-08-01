@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "bootstrap/bootstrap";
+@import "spinner";
+@import "utils";
+@import "rtl";
+@import "responsive";
+
+body {
+    background: url(https://s3-ap-southeast-1.amazonaws.com/dm-microsite-media/wordpress/wp-content/uploads/2017/03/06084212/patternbg.png) top center repeat;
+    padding: 20px;
+    color: #FFFFFF !important;
+}
+
+
+// Datatable custom css
+#leadersTable_filter, #leadersTable_info, #leadersTable_paginate {
+    display: none !important;
+}
+
+#leadersTable {
+    tr {
+        background-color: transparent !important;
+        td {
+            color: #FFFFFF !important;
+        }
+    }
+}
+
+@media print {
+    .breadcrumb {
+        display: none !important;
+    }
+}
